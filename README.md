@@ -20,7 +20,7 @@ Methods can be accessed by `const { f } = require('readability-cyr')`, where `f`
 You can also access basic functions `length`, `spacesCount`, `letterCount`, `digitCount`, `getWords`, `wordCount`, ` averageWordLength`, `singleSyllableCount`, `syllableCount`, `getDifficultWords`, `difficultWordsCount`, `
 averageSyllablesPerWord`, `difficultWordsPercentage`, `getSentences`, `sentenceCount`, `averageSentenceLength`, ` averageSyllablesPerSentence`, `averageWordsPerSentence`.
 
-Additional information can be founde [here](http://science.lpnu.ua/sites/default/files/journal-paper/2019/jun/16807/014081085.pdf).
+Additional information can be found [here](http://science.lpnu.ua/sites/default/files/journal-paper/2019/jun/16807/014081085.pdf).
 
 ## Installation
 
