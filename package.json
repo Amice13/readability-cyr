@@ -1,0 +1,41 @@
+{
+  "name": "hclust",
+  "version": "1.0.0",
+  "description": "Classic readability scores for Cyryllic texts",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Amice13/readability-cyr"
+  },
+  "keywords": [
+    "ukrainian",
+    "russian",
+    "readability",
+    "scores",
+    "word",
+    "sentence",
+    "syllable",
+    "Gunning Fog Score",
+    "Flesch Kincaid Reading Grade",
+    "Flesch Kincaid Reading Ease",
+    "SMOG Index",
+    "Automated Reability Index",
+    "Coleman Liau Index",
+    "Dale-Chall Readability Score",
+    "Spache Readability Score",
+    "ARI",
+    "SMOG"
+  ],
+  "author": "Zakharov Kyrylo",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Amice13/readability-cyr/issues"
+  },
+  "homepage": "https://github.com/Amice13/readability-cyr#readme",
+  "devDependencies": {
+    "mocha": "^7.1.1"
+  }
+}
