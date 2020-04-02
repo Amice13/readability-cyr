@@ -1,5 +1,5 @@
 {
-  "name": "hclust",
+  "name": "readability-cyr",
   "version": "1.0.0",
   "description": "Classic readability scores for Cyryllic texts",
   "main": "index.js",
