@@ -71,7 +71,7 @@ describe('Testing generic functions', () => {
     assert.strictEqual(textScore.difficultWordsCount(testText), 34)
   })
   it('Average syllables per word', () => {
-    assert.strictEqual(Math.round(textScore.averageSyllablesPerWord(testText)), 2)
+    assert.strictEqual(Math.round(textScore.averageSyllablesWord(testText)), 2)
   })
   it('Percentage of difficult words', () => {
     assert.strictEqual(Math.round(textScore.difficultWordsPercentage(testText)), 27)
@@ -86,7 +86,7 @@ describe('Testing generic functions', () => {
     assert.strictEqual(textScore.longestWordSyllables(testText), 'виявилося')
   })
   it('Longest word by syllables length', () => {
-    assert.strictEqual(textScore.longestWordLettersLength(testText), 5)
+    assert.strictEqual(textScore.longestWordSyllablesLength(testText), 5)
   })
   it('Get sentences array', () => {
     if (!Array.isArray(textScore.getSentences(testText))) {
@@ -113,13 +113,13 @@ describe('Testing generic functions', () => {
     assert.strictEqual(textScore.shortestSentenceSyllableCount(testText), 5)
   })
   it('Shortest sentence word count', () => {
-    assert.strictEqual(textScore.shortestSentenceSyllableCount(testText), 2)
+    assert.strictEqual(textScore.shortestSentenceWordCount(testText), 2)
   })
   it('Longest sentence', () => {
     assert.strictEqual(textScore.longestSentence(testText), 'У заїзді ще не спали, і хоча в господаря, розгубленого несподіваним пізнім візитом, не виявилося для гостя вільної кімнати, він запропонував К. нічліг на солом\'яній підстилці в загальному залі')
   })
   it('Longest sentence length', () => {
-    assert.strictEqual(textScore.shortestSentenceLength(testText), 192)
+    assert.strictEqual(textScore.longestSentenceLength(testText), 192)
   })
   it('Longest sentence syllable count', () => {
     assert.strictEqual(textScore.longestSentenceSyllableCount(testText), 59)
@@ -136,8 +136,26 @@ describe('Testing generic functions', () => {
   it('Average words per sentence', () => {
     assert.strictEqual(Math.round(textScore.averageSentenceWords(testText)), 14)
   })
+  it('Get paragraphs array', () => {
+    if (!Array.isArray(textScore.getParapgraphs(testText))) {
+      assert.fail(new TypeError('Result is not an array'))
+    }
+    assert.strictEqual(textScore.getParapgraphs(testText).length, 2)
+  })
+  it('Paragraphs count', () => {
+    assert.strictEqual(textScore.paragraphCount(testText), 2)
+  })
+  it('Average number of words in paragraphs', () => {
+    assert.strictEqual(textScore.averageParagraphWords(testText), 63.5)
+  })
+  it('Average number of sentences in paragraphs', () => {
+    assert.strictEqual(textScore.averageParagraphSentences(testText), 5)
+  })
   it('Gunning Fog Score', () => {
-    assert.strictEqual(Math.round(textScore.scoreGunningFog(testText)), 7)
+    assert.strictEqual(Math.round(textScore.scoreGunningFog(testText)), 16)
+  })
+  it('The Powers-Sumner-Kearl Variation of Gunning\'s Fog Index', () => {
+    assert.strictEqual(Math.round(textScore.scoreGunningFogPSK(testText)), 6)
   })
   it('Flesch Kincaid Reading Grade', () => {
     assert.strictEqual(Math.round(textScore.scoreFleschKincaidGrade(testText)), 14)
@@ -145,19 +163,91 @@ describe('Testing generic functions', () => {
   it('Flesch Kincaid Reading Ease', () => {
     assert.strictEqual(Math.round(textScore.scoreFleschKincaidEase(testText)), 23)
   })
+  it('Farr-Jenkins-Paterson\'s Simplification of Flesch\'s Reading Ease Score', () => {
+    assert.strictEqual(Math.round(textScore.scoreFJPS(testText)), -45)
+  })
+  it('The Powers-Sumner-Kearl\'s Variation of Flesch Reading Ease Score', () => {
+    assert.strictEqual(Math.round(textScore.scoreFleschPSK(testText)), 18)
+  })
   it('SMOG Index', () => {
     assert.strictEqual(Math.round(textScore.scoreSMOG(testText)), 3)
   })
+  it('Simplified Version of McLaughlin\'s (1969) SMOG Measure', () => {
+    assert.strictEqual(Math.round(textScore.scoreSMOGSimple(testText)), 3)
+  })
+  it('Automated Readability Index Simple', () => {
+    assert.strictEqual(Math.round(textScore.scoreARISimple(testText)), 61)
+  })
   it('Automated Readability Index', () => {
-    assert.strictEqual(Math.round(textScore.scoreARI(testText)), 16)
+    assert.strictEqual(Math.round(textScore.scoreARI(testText)), 10)
+  })
+  it('Coleman\'s (1971) Readability Formula 1', () => {
+    assert.strictEqual(Math.round(textScore.scoreColeman(testText)), 12)
+  })
+  it('Coleman\'s (1971) Readability Formula 2', () => {
+    assert.strictEqual(Math.round(textScore.scoreColeman2(testText)), 18)
+  })
+  it('Coleman-Liau Estimated Cloze Percent', () => {
+    assert.strictEqual(Math.round(textScore.scoreColemanLiauECP(testText)), 37)
+  })
+  it('Coleman-Liau Grade Level (Coleman and Liau 1975)', () => {
+    assert.strictEqual(Math.round(textScore.scoreColemanLiauGL(testText)), 13)
   })
   it('Coleman Liau Index', () => {
     assert.strictEqual(Math.round(textScore.scoreColemanLiau(testText)), 20)
   })
   it('Dale-Chall Readability Score', () => {
-    assert.strictEqual(Math.round(textScore.scoreDaleChall(testText)), 1)
+    assert.strictEqual(Math.round(textScore.scoreDaleChall(testText)), 5)
   })
   it('Spache Readability Score', () => {
-    assert.strictEqual(Math.round(textScore.scoreSpache(testText)), 12)
+    assert.strictEqual(Math.round(textScore.scoreSpache(testText)), 14)
+  })
+  it('Spache Readability Score', () => {
+    assert.strictEqual(Math.round(textScore.scoreSpache(testText)), 14)
+  })
+  it('Linsear-Write formula', () => {
+    assert.strictEqual(textScore.scoreLinsearWrite(testText) > 10, true)
+  })
+  it('The Power-Sumner-Kearl Readability Formula Grade Level', () => {
+    assert.strictEqual(textScore.scorePowerSumnerKearlGrade(testText) > 5, true)
+  })
+  it('The Power-Sumner-Kearl Readability Formula Reading Age', () => {
+    assert.strictEqual(textScore.scorePowerSumnerKearlRA(testText) > 10, true)
+  })
+  it('FORCAST Readability Formula Grade Level', () => {
+    assert.strictEqual(Math.round(textScore.scoreForcastGL(testText)), 15)
+  })
+  it('LIX readability test', () => {
+    assert.strictEqual(Math.round(textScore.scoreLIX(testText)), 40)
+  })
+  it('RIX Anderson\'s (1983) Readability Index', () => {
+    assert.strictEqual(Math.round(textScore.scoreRIX(testText)), 0)
+  })
+  it('Danielson-Bryan\'s (1963) Readability Measure 1', () => {
+    assert.strictEqual(Math.round(textScore.scoreDanielsonBryan(testText)), 6)
+  })
+  it('Danielson-Bryan\'s (1963) Readability Measure 2', () => {
+    assert.strictEqual(Math.round(textScore.scoreDanielsonBryan2(testText)), 78)
+  })
+  it('Dickes-Steiwer Index', () => {
+    assert.strictEqual(Math.round(textScore.scoreDickesSteiwer(testText)), -364)
+  })
+  it('Easy Listening Formula', () => {
+    assert.strictEqual(Math.round(textScore.scoreELF(testText)), 9)
+  })
+  it('Fucks\' Style Characteristic', () => {
+    assert.strictEqual(Math.round(textScore.scoreFSC(testText)), 0)
+  })
+  it('Strain Index', () => {
+    assert.strictEqual(Math.round(textScore.scoreStrain(testText)), 8)
+  })
+  it('Wheeler & Smith\'s (1954) Readability Measure', () => {
+    assert.strictEqual(Math.round(textScore.scoreWheelerSmith(testText)), 86)
+  })
+  it('Reading Time', () => {
+    assert.strictEqual(textScore.readingTime(testText), '0:38')
+  })
+  it('Speaking Time', () => {
+    assert.strictEqual(textScore.speakingTime(testText), '0:47')
   })
 })

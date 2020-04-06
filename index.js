@@ -1,8 +1,3 @@
-const testText = `
-К. прибув пізнього вечора. Село загрузло в глибокому снігу. Замкової гори не було видно, її поглинули туман і темрява, жоден, навіть слабенький, промінчик світла не виказував існування великого Замку. К. довго стояв на дерев'яному містку, який з'єднував гостинець із Селом, і вдивлявся в те, що здавалося порожнечею.
-Потім він вирушив шукати місце для ночівлі. У заїзді ще не спали, і хоча в господаря, розгубленого несподіваним пізнім візитом, не виявилося для гостя вільної кімнати, він запропонував К. нічліг на солом'яній підстилці в загальному залі. К. погодився. Кілька селян ще сиділи за пивом, але прибулий не хотів ні з ким спілкуватися, тому приніс собі солом'яну підстилку з горища і влігся поближче до печі. Було тепло, селяни сиділи тихо, він ще трохи спостерігав за ними втомленим поглядом, а далі заснув.
-`
-
 // String length
 const length = str => {
   return str.length
@@ -179,7 +174,6 @@ const longestWordSyllables = str => {
 const longestWordSyllablesLength = str => {
   return singleSyllableCount(longestWordSyllables(str))
 }
-
 // Get sentences array
 const getSentences = str => {
   let sentences = str.split(/\n|\.{3}|(?<!(?:\n|\s|,|:|\.)[А-ЯЄІЇҐЁ])\.|!|\?|\n/sg)
@@ -314,6 +308,7 @@ const averageParagraphSentences = str => {
 const scoreGunningFog = str => {
   const asl = averageSentenceWords(str)
   const p = difficultWordsCount(str)
+  const w = wordCount(str)
   return 0.4 * (asl + 100 * p / w)
 }
 
@@ -385,14 +380,14 @@ const scoreARI = str => {
   return 4.71 * awl + 0.5 * aws - 21.43
 }
 
-// Coleman's (1971) Readability Formula 1.
+// Coleman's (1971) Readability Formula 1
 const scoreColeman = str => {
   const words = getWords(str)
   const nws = words.filter(el => singleSyllableCount(el) === 1).length
   return 1.29 * 100 * nws / words.length - 38.45
 }
 
-// Coleman's (1971) Readability Formula 2. ?????????
+// Coleman's (1971) Readability Formula 2
 const scoreColeman2 = str => {
   const words = getWords(str)
   const nws = words.filter(el => singleSyllableCount(el) === 1).length
@@ -572,12 +567,52 @@ const readingTime = (str, wpm = 200, durationType = 'minutes') => {
 }
 
 // Speaking time
-const speakingTime = (str, wpm = 200, durationType = 'minutes') => {
-  return readingTime(str, 160, durationType)
+const speakingTime = (str, wpm = 160, durationType = 'minutes') => {
+  return readingTime(str, wpm, durationType)
 }
 
-// https://quanteda.io/reference/textstat_readability.html
-// https://scholarworks.wmich.edu/cgi/viewcontent.cgi?referer=https://en.wikipedia.org/&httpsredir=1&article=1792&context=reading_horizons
+// Get summary
+const getSummary = str => {
+  return {
+    characters: length(str),
+    spaces: spacesCount(str),
+    letters: letterCount(str),
+    syllables: syllableCount(str),
+    words: wordCount(str),
+    uniqueWords: uniqueWordCount(str),
+    longestWord: longestWordLettersLength(str),
+    difficultWords: difficultWordsCount(str),
+    difficultWordsPercentage: difficultWordsPercentage(str),
+    sentences: sentenceCount(str),
+    paragraphs: paragraphCount(str),
+
+    lexicalDiversity: lexicalDiversity(str),
+    averageWordLength: averageWordLength(str),
+    averageSyllablesPerWord: averageSyllablesWord(str),
+    averageSentenceLength: averageSentenceLength(str),
+    averageWordsPerSentence: averageSentenceWords(str),
+
+    readingTime: readingTime(str),
+    speakingTime: speakingTime(str),
+
+    GunningFog: scoreGunningFog(str),
+    FleschKincaidGrade: scoreFleschKincaidGrade(str), 
+    SMOG: scoreSMOG(str),
+    ARI: scoreARI(str),
+    ColemanLiau: scoreColemanLiau(str),
+    DaleChall: scoreDaleChall(str),
+    Spache: scoreSpache(str),
+    LinsearWrite: scoreLinsearWrite(str),
+    ForcastRA: scoreForcastRA(str),
+    LIX: scoreLIX(str),
+    RIX: scoreRIX(str),
+    DanielsonBryan: scoreDanielsonBryan(str),
+    ELF: scoreELF(str),
+    FSC: scoreFSC(str),
+    Strain: scoreStrain(str),
+    WheelerSmith: scoreWheelerSmith(str)
+  }
+}
 
 module.exports = {
   length,
