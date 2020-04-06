@@ -19,6 +19,12 @@ describe('Testing generic functions', () => {
   it('Digit count', () => {
     assert.strictEqual(textScore.digitCount(testText), 0)
   })
+  it('Periond count', () => {
+    assert.strictEqual(textScore.periodCount(testText), 13)
+  })
+  it('questionCount count', () => {
+    assert.strictEqual(textScore.questionCount(testText), 0)
+  })
   it('Get words array', () => {
     if (!Array.isArray(textScore.getWords(testText))) {
       assert.fail(new TypeError('Result is not an array'))
@@ -31,6 +37,27 @@ describe('Testing generic functions', () => {
   it('Average word length', () => {
     assert.strictEqual(Math.round(textScore.averageWordLength(testText)), 5)
   })
+  it('Unique word count', () => {
+    assert.strictEqual(textScore.uniqueWordCount(testText), 105)
+  })
+  it('Text-Type Ratio', () => {
+    assert.strictEqual(Math.round(textScore.lexicalDiversity(testText) * 100), 83)
+  })
+  it('Text-Type Ratio - Herdan\'s C', () => {
+    assert.strictEqual(Math.round(textScore.lexicalDiversity(testText, 'herdan') * 100), 96)
+  })
+  it('Guiraud\'s Root Text-Type Ratio', () => {
+    assert.strictEqual(Math.round(textScore.lexicalDiversity(testText, 'guiraud') * 100), 83)
+  })
+  it('Carroll\'s Corrected Text-Type Ratio', () => {
+    assert.strictEqual(Math.round(textScore.lexicalDiversity(testText, 'carroll') * 100), 41)
+  })
+  it('Text-Type Ratio - Dugast\'s Uber Index', () => {
+    assert.strictEqual(Math.round(textScore.lexicalDiversity(testText, 'dugast')), 21)
+  })
+  it('Text-Type Ratio - Summer\'s index', () => {
+    assert.strictEqual(Math.round(textScore.lexicalDiversity(testText, 'summer') * 100), 97)
+  })
   it('Text syllable count', () => {
     assert.strictEqual(textScore.syllableCount(testText), 254)
   })
@@ -38,16 +65,28 @@ describe('Testing generic functions', () => {
     if (!Array.isArray(textScore.getDifficultWords(testText))) {
       assert.fail(new TypeError('Result is not an array'))
     }
-    assert.strictEqual(textScore.getDifficultWords(testText).length, 4)
+    assert.strictEqual(textScore.getDifficultWords(testText).length, 34)
   })
   it('Difficult words count', () => {
-    assert.strictEqual(textScore.difficultWordsCount(testText), 4)
+    assert.strictEqual(textScore.difficultWordsCount(testText), 34)
   })
   it('Average syllables per word', () => {
     assert.strictEqual(Math.round(textScore.averageSyllablesPerWord(testText)), 2)
   })
   it('Percentage of difficult words', () => {
-    assert.strictEqual(Math.round(textScore.difficultWordsPercentage(testText)), 3)
+    assert.strictEqual(Math.round(textScore.difficultWordsPercentage(testText)), 27)
+  })
+  it('Longest word by letters', () => {
+    assert.strictEqual(textScore.longestWordLetters(testText), 'спілкуватися')
+  })
+  it('Longest word length', () => {
+    assert.strictEqual(textScore.longestWordLettersLength(testText), 12)
+  })
+  it('Longest word by syllables', () => {
+    assert.strictEqual(textScore.longestWordSyllables(testText), 'виявилося')
+  })
+  it('Longest word by syllables length', () => {
+    assert.strictEqual(textScore.longestWordLettersLength(testText), 5)
   })
   it('Get sentences array', () => {
     if (!Array.isArray(textScore.getSentences(testText))) {
@@ -58,14 +97,44 @@ describe('Testing generic functions', () => {
   it('Sentence count', () => {
     assert.strictEqual(textScore.sentenceCount(testText), 9)
   })
+  it('Short sentence count', () => {
+    assert.strictEqual(textScore.shortSentenceCount(testText), 6)
+  })
+  it('Long sentence count', () => {
+    assert.strictEqual(textScore.longSentenceCount(testText), 0)
+  })
+  it('Shortest sentence', () => {
+    assert.strictEqual(textScore.shortestSentence(testText), 'К. погодився')
+  })
+  it('Shortest sentence length', () => {
+    assert.strictEqual(textScore.shortestSentenceLength(testText), 12)
+  })
+  it('Shortest sentence syllable count', () => {
+    assert.strictEqual(textScore.shortestSentenceSyllableCount(testText), 5)
+  })
+  it('Shortest sentence word count', () => {
+    assert.strictEqual(textScore.shortestSentenceSyllableCount(testText), 2)
+  })
+  it('Longest sentence', () => {
+    assert.strictEqual(textScore.longestSentence(testText), 'У заїзді ще не спали, і хоча в господаря, розгубленого несподіваним пізнім візитом, не виявилося для гостя вільної кімнати, він запропонував К. нічліг на солом\'яній підстилці в загальному залі')
+  })
+  it('Longest sentence length', () => {
+    assert.strictEqual(textScore.shortestSentenceLength(testText), 192)
+  })
+  it('Longest sentence syllable count', () => {
+    assert.strictEqual(textScore.longestSentenceSyllableCount(testText), 59)
+  })
+  it('Longest sentence word count', () => {
+    assert.strictEqual(textScore.longestSentenceWordLength(testText), 29)
+  })
   it('Average sentence length', () => {
     assert.strictEqual(Math.round(textScore.averageSentenceLength(testText)), 89)
   })
   it('Average syllables per sentence', () => {
-    assert.strictEqual(Math.round(textScore.averageSyllablesPerSentence(testText)), 28)
+    assert.strictEqual(Math.round(textScore.averageSentenceSyllable(testText)), 28)
   })
   it('Average words per sentence', () => {
-    assert.strictEqual(Math.round(textScore.averageWordsPerSentence(testText)), 14)
+    assert.strictEqual(Math.round(textScore.averageSentenceWords(testText)), 14)
   })
   it('Gunning Fog Score', () => {
     assert.strictEqual(Math.round(textScore.scoreGunningFog(testText)), 7)
