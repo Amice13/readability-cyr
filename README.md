@@ -63,8 +63,7 @@ You can get a quick summary about your text with a function `getSummary(str)`.
 
 There is also an access to basic functions `length`, `spacesCount`, `letterCount`, `digitCount`, `periodCount`, `questionCount`, `getWords`, `getRandomSample`, `getRandomPart`, `wordCount`, `averageWordLength`, `uniqueWordCount`,  `singleSyllableCount`, `syllableCount`, `getDifficultWords`, `difficultWordsCount`, `averageSyllablesWord`, `difficultWordsPercentage`, `longestWordLetters`, `longestWordLettersLength`, `longestWordSyllables`, `longestWordSyllablesLength`, `getSentences`, `sentenceCount`,  `shortSentenceCount`, `longSentenceCount`, `shortestSentence`, `shortestSentenceLength`, `shortestSentenceSyllableCount`, `shortestSentenceWordCount`, `longestSentence`, `longestSentenceLength`, `longestSentenceSyllableCount`, `longestSentenceWordLength`, `averageSentenceLength`, `averageSentenceSyllable`, `averageSentenceWords`, `getParapgraphs`, `paragraphCount`, `averageParagraphWords`, `averageParagraphSentences`.
 
-Additional information can be found [here](http://science.lpnu.ua/sites/default/files/journal-paper/2019/jun/16807/014081085.pdf), [here](https://quanteda.io/reference/textstat_readability.html
-//) and [here](https://scholarworks.wmich.edu/cgi/viewcontent.cgi?referer=https://en.wikipedia.org/&httpsredir=1&article=1792&context=reading_horizons).
+Additional information can be found [here](http://science.lpnu.ua/sites/default/files/journal-paper/2019/jun/16807/014081085.pdf), [here](https://quanteda.io/reference/textstat_readability.html) and [here](https://scholarworks.wmich.edu/cgi/viewcontent.cgi?referer=https://en.wikipedia.org/&httpsredir=1&article=1792&context=reading_horizons).
 
 ## Installation
 
