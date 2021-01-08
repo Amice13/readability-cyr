@@ -11,7 +11,7 @@ const spacesCount = str => {
 
 // Letter count
 const letterCount = str => {
-  const letters = str.match(/[а-яєіїґёa-z]/igs)
+  const letters = str.match(/[a-zа-яєіїґё]/igs)
   return letters ? letters.length : 0
 }
 
@@ -35,7 +35,7 @@ const questionCount = str => {
 
 // Get words array
 const getWords = str => {
-  const words = str.match(/[а-яєіїґё`']+/isg)
+  const words = str.match(/[a-zа-яєіїґё`']+/isg)
   return words ? words : []
 }
 
@@ -61,7 +61,7 @@ const getRandomPart = (str, n = 100, returnString = true) => {
   let randomString = ''
   while (hundreds.length !== n) {
     randomString = str.slice(Math.floor(Math.random() * str.length), str.length - 1)
-    hundreds = randomString.match(new RegExp('([а-яєіїґё`\']+[^а-яєіїґё`\']+){' + n + '}', 'gis'))
+    hundreds = randomString.match(new RegExp('([a-zа-яєіїґё`\']+[^a-zа-яєіїґё`\']+){' + n + '}', 'gis'))
     hundreds = hundreds ? getWords(hundreds[0]) : []
   }
   return returnString ? randomString : hundreds
@@ -412,7 +412,7 @@ const scoreColemanLiauGL = str => {
 
 // Coleman Liau Index
 const scoreColemanLiau = str => {
-  const hundreds = str.match(/([а-яєіїґё`']+[^а-яєіїґё`']+){100}/gis)
+  const hundreds = str.match(/([a-zа-яєіїґё`']+[^a-zа-яєіїґё`']+){100}/gis)
   if (!hundreds) return 1
   const l = hundreds.map(el => length(el)).reduce((acc, val) => acc + val, 0)
   const s = hundreds.map(el => getSentences(el).length).reduce((acc, val) => acc + val, 0)
@@ -437,6 +437,7 @@ const scoreSpache = str => {
 // Linsear-Write formula
 const scoreLinsearWrite = str => {
   const sample = getRandomPart(str)
+  console.log(sample)
   const words = getWords(sample)
   const s = sentenceCount(sample)
   const sw = words.filter(el => singleSyllableCount(el) < 3)
@@ -585,7 +586,87 @@ const getSummary = str => {
     difficultWordsPercentage: difficultWordsPercentage(str),
     sentences: sentenceCount(str),
     paragraphs: paragraphCount(str),
+    lexicalDiversity: lexicalDiversity(str),
+    averageWordLength: averageWordLength(str),
+    averageSyllablesPerWord: averageSyllablesWord(str),
+    averageSentenceLength: averageSentenceLength(str),
+    averageWordsPerSentence: averageSentenceWords(str),
 
+    readingTime: readingTime(str),
+    speakingTime: speakingTime(str),
+
+    GunningFog: scoreGunningFog(str),
+    FleschKincaidGrade: scoreFleschKincaidGrade(str), 
+    SMOG: scoreSMOG(str),
+    ARI: scoreARI(str),
+    ColemanLiau: scoreColemanLiau(str),
+    DaleChall: scoreDaleChall(str),
+    Spache: scoreSpache(str),
+    LinsearWrite: scoreLinsearWrite(str),
+    ForcastRA: scoreForcastRA(str),
+    LIX: scoreLIX(str),
+    RIX: scoreRIX(str),
+    DanielsonBryan: scoreDanielsonBryan(str),
+    ELF: scoreELF(str),
+    FSC: scoreFSC(str),
+    Strain: scoreStrain(str),
+    WheelerSmith: scoreWheelerSmith(str)
+  }
+}
+
+const vocabulary = {
+  characters: 'Number of characters',
+  spaces: 'Number of spaces',
+  letters: 'Number of letters',
+  syllables: 'Number of syllables',
+  words: 'Number of words',
+  uniqueWords: 'Number of unique words',
+  longestWord: 'The longest word',
+  difficultWords: 'Number of difficult words',
+  difficultWordsPercentage: 'Percentage of difficult words',
+  sentences: 'Number of sentences',
+  paragraphs: 'Number of paragraphs',
+  lexicalDiversity: 'Lexical diversity',
+  averageWordLength: 'Average word length:',
+  averageSyllablesPerWord: 'Average syllables per word',
+  averageSentenceLength: 'Average sentence length (characters)',
+  averageWordsPerSentence: 'Average number of words per sentence',
+
+  readingTime: 'Reading time',
+  speakingTime: 'Speaking time',
+
+  GunningFog: 'Gunning Fog Index',
+  FleschKincaidGrade: 'The Flesch–Kincaid Grade Level', 
+  SMOG: 'SMOG Readability',
+  ARI: 'Automated Readability Index',
+  ColemanLiau: 'Coleman–Liau index',
+  DaleChall: 'Dale–Chall readability',
+  Spache: 'Spache Readability',
+  LinsearWrite: 'Linsear Write Readability',
+  ForcastRA: 'FORCAST Readability',
+  LIX: 'Lix (readability test)',
+  RIX: 'Rix (readability test)',
+  DanielsonBryan: 'Danielson-Bryan Readability',
+  ELF: 'Fang\'s Easy Listening',
+  FSC: 'Fucks\' Style Characteristic',
+  Strain: 'Strain Index',
+  WheelerSmith: 'Wheeler & Smith\'s Readability Measure'
+}
+
+const getDescriptiveSummary = str => {
+  const summary = getSummary(str)
+  return {
+    characters: length(str),
+    spaces: spacesCount(str),
+    letters: letterCount(str),
+    syllables: syllableCount(str),
+    words: wordCount(str),
+    uniqueWords: uniqueWordCount(str),
+    longestWord: longestWordLettersLength(str),
+    difficultWords: difficultWordsCount(str),
+    difficultWordsPercentage: difficultWordsPercentage(str),
+    sentences: sentenceCount(str),
+    paragraphs: paragraphCount(str),
     lexicalDiversity: lexicalDiversity(str),
     averageWordLength: averageWordLength(str),
     averageSyllablesPerWord: averageSyllablesWord(str),
@@ -689,5 +770,7 @@ module.exports = {
   scoreStrain,
   scoreWheelerSmith,
   readingTime,
-  speakingTime
+  speakingTime,
+  getSummary,
+  getDescriptiveSummary
 }

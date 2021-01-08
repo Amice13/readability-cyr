@@ -1,7 +1,7 @@
 {
   "name": "readability-cyr",
-  "version": "1.0.3",
-  "description": "Classic readability scores for Cyryllic texts",
+  "version": "1.0.6",
+  "description": "Classic readability scores for Cyryllic and English texts",
   "main": "index.js",
   "scripts": {
     "test": "mocha test.js"
