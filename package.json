@@ -1,6 +1,6 @@
 {
   "name": "readability-cyr",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Classic readability scores for Cyryllic and English texts",
   "main": "index.js",
   "scripts": {

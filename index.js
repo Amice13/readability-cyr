@@ -437,7 +437,6 @@ const scoreSpache = str => {
 // Linsear-Write formula
 const scoreLinsearWrite = str => {
   const sample = getRandomPart(str)
-  console.log(sample)
   const words = getWords(sample)
   const s = sentenceCount(sample)
   const sw = words.filter(el => singleSyllableCount(el) < 3)
@@ -655,43 +654,8 @@ const vocabulary = {
 
 const getDescriptiveSummary = str => {
   const summary = getSummary(str)
-  return {
-    characters: length(str),
-    spaces: spacesCount(str),
-    letters: letterCount(str),
-    syllables: syllableCount(str),
-    words: wordCount(str),
-    uniqueWords: uniqueWordCount(str),
-    longestWord: longestWordLettersLength(str),
-    difficultWords: difficultWordsCount(str),
-    difficultWordsPercentage: difficultWordsPercentage(str),
-    sentences: sentenceCount(str),
-    paragraphs: paragraphCount(str),
-    lexicalDiversity: lexicalDiversity(str),
-    averageWordLength: averageWordLength(str),
-    averageSyllablesPerWord: averageSyllablesWord(str),
-    averageSentenceLength: averageSentenceLength(str),
-    averageWordsPerSentence: averageSentenceWords(str),
-
-    readingTime: readingTime(str),
-    speakingTime: speakingTime(str),
-
-    GunningFog: scoreGunningFog(str),
-    FleschKincaidGrade: scoreFleschKincaidGrade(str), 
-    SMOG: scoreSMOG(str),
-    ARI: scoreARI(str),
-    ColemanLiau: scoreColemanLiau(str),
-    DaleChall: scoreDaleChall(str),
-    Spache: scoreSpache(str),
-    LinsearWrite: scoreLinsearWrite(str),
-    ForcastRA: scoreForcastRA(str),
-    LIX: scoreLIX(str),
-    RIX: scoreRIX(str),
-    DanielsonBryan: scoreDanielsonBryan(str),
-    ELF: scoreELF(str),
-    FSC: scoreFSC(str),
-    Strain: scoreStrain(str),
-    WheelerSmith: scoreWheelerSmith(str)
+  for (let key of Object.keys(summary)) {
+    console.log(`${vocabulary[key]}: ${summary[key]}`)
   }
 }
 
