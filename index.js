@@ -488,7 +488,7 @@ const scoreRIX = str => {
   const words = getWords(str)
   const nwsy = words.filter(el => singleSyllableCount(el) > 6)
   const nst = sentenceCount(str)
-  return nwsy / nst
+  return nwsy.length / nst
 }
 
 // Danielson-Bryan's (1963) Readability Measure 1
@@ -549,12 +549,12 @@ const formatDuration = {
   minutesRound: ms => Math.round(ms / (60 * 1000)),
   minutes: ms => {
     const d = new Date(ms)
-    return d.getUTCMinutes() + ':' + d.getUTCSeconds()
+    return d.getUTCMinutes() + ':' + String(d.getUTCSeconds()).padStart(2, '0')
   },
   hoursRound: ms => Math.round(ms / (60 * 60 * 1000)),
   hours: ms => {
     const d = new Date(ms)
-    return d.getUTCHours() + d.getUTCMinutes() + ':' + d.getUTCSeconds()
+    return d.getUTCHours() + ':' + String(d.getUTCMinutes()).padStart(2, '0') + ':' + String(d.getUTCSeconds()).padStart(2, '0')
   }
 }
 
@@ -626,7 +626,7 @@ const vocabulary = {
   sentences: 'Number of sentences',
   paragraphs: 'Number of paragraphs',
   lexicalDiversity: 'Lexical diversity',
-  averageWordLength: 'Average word length:',
+  averageWordLength: 'Average word length',
   averageSyllablesPerWord: 'Average syllables per word',
   averageSentenceLength: 'Average sentence length (characters)',
   averageWordsPerSentence: 'Average number of words per sentence',
