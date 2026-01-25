@@ -1,16 +1,19 @@
-# readability-cyr - counts classic readability scores for cyrillic texts
+# readability-cyr - Classic Readability Scores for Cyrillic Texts
 
 ## Description
 
-This Node JS program counts different readability scores for cyryllic texts (no dependencies).
+`readability-cyr` is a Node.js package that computes a variety of classic readability scores for Cyrillic texts. It is dependency-free and works entirely with built-in JavaScript functions.
 
-Please, note that this program **does not account** 
+### Important limitations
 
-1) Peculiar properties of Ukrainian or Russian languages. It only counts scores in consideration of specific vowels in cyryllic languages.
-2) Different word forms. It doesn't do any stemming or lemmatization, so lexical diversity and all derivatives can be overestimated.
-3) Specific words. Accounting that this program is developed mainly for cyrillic texts, it does not use any vocabularies. E.g. Dale-Chall Readability Score uses the vocabulary of difficult words. This program supposes that any words with 3 or more syllables is a difficult word.
+This program is a heuristic tool and does not fully account for the linguistic properties of Ukrainian, Russian, or other Cyrillic-based languages. Users should be aware of the following:
 
-Some methods include the estimation of the **random part of the text**. This program does not includes random seed, so some values can differ in the same conditions (look functions `getRandomSample` and `getRandomPart`).
+1. **Language-specific features are not considered**. It only identifies vowels in Cyrillic texts for syllable-based calculations. Complex rules of pronunciation, stress, or syllable counting are not implemented.
+2. **No stemming or lemmatization**. Different forms of the same word are treated as separate words. Metrics such as lexical diversity may therefore be overestimated.
+3. **No vocabulary lists used**. For scores that rely on word lists (e.g., Dale–Chall), this program does not use any predefined vocabulary. Instead, words with three or more syllables are treated as “difficult” words.
+4. **Tokenization-dependent results**. Sentence and word splitting are based on simple regular expressions. Results can differ depending on punctuation and formatting. Users should review the code for tokenization rules.
+5. **Heuristic syllable counting**. Syllables are approximated by counting vowels, which is a simplification. Scores such as Flesch–Kincaid, Gunning Fog, or SMOG may differ from dictionary-based calculations.
+6. **Intended for general analysis**. This package is suitable for rough readability estimation and text statistics but should not be used as a definitive measure for formal linguistic research or official educational assessment.
 
 ## Functions
 
@@ -90,37 +93,38 @@ console.log(getSummary(testText))
 /*
 {
   characters: 821,
-  spaces: 128,
+  spaces: 125,
   letters: 660,
-  syllables: 254,
+  syllables: 239,
   words: 127,
-  uniqueWords: 105,
+  uniqueWords: 104,
   longestWord: 12,
   difficultWords: 34,
+  difficultWordsPercentage: 26.771653543307085,
   sentences: 9,
   paragraphs: 2,
-  lexicalDiversity: 0.8267716535433071,
+  lexicalDiversity: 0.8188976377952756,
   averageWordLength: 5.228346456692913,
-  averageSyllablesPerWord: 2,
-  averageSentenceLength: 89.11111111111111,
+  averageSyllablesPerWord: 1.8818897637795275,
+  averageSentenceLength: 14.11111111111111,
   averageWordsPerSentence: 14.11111111111111,
-  readingTime: '0:38',
-  speakingTime: '0:47',
+  readingTime: '00:00:38',
+  speakingTime: '00:00:47',
   GunningFog: 16.35310586176728,
-  FleschKincaidGrade: 13.513333333333335,
-  SMOG: 3.1291,
+  FleschKincaidGrade: 12.119632545931761,
+  SMOG: 15.172626615295592,
   ARI: 10.251067366579178,
-  ColemanLiau: 19.8736,
-  DaleChall: 4.9271552055993,
-  Spache: 14.229444444444445,
-  LinsearWrite: 12.285714285714286,
-  ForcastRA: 20,
+  ColemanLiau: 14.950399999999998,
+  DaleChall: 28.830262467191602,
+  Spache: 5.154444444444445,
+  LinsearWrite: 10,
+  ForcastRA: 24,
   LIX: 40.4778921865536,
-  RIX: 0,
+  RIX: 4.333333333333333,
   DanielsonBryan: 6.287052380952381,
   ELF: 8.555555555555555,
-  FSC: 0.37051274102548204,
-  Strain: 8.466666666666667,
+  FSC: 73.77777777777777,
+  Strain: 7.966666666666667,
   WheelerSmith: 85.55555555555556
 }
 */

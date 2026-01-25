@@ -1,15 +1,36 @@
 {
   "name": "readability-cyr",
-  "version": "1.0.8",
+  "version": "1.1.0",
   "description": "Classic readability scores for Cyryllic and English texts",
-  "main": "index.js",
   "scripts": {
-    "test": "mocha test.js"
+    "ts-standard": "ts-standard src",
+    "build-tsc": "tsc --project tsconfig.json",
+    "build": "tsup",
+    "dev": "node --inspect --watch-path=./src ./tests/tests.ts",
+    "test": "node tests.ts"
+  },
+  "main": "./dist",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "ts-standard": {
+    "project": "./tsconfig.json",
+    "ignore": [
+      "dist"
+    ]
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Amice13/readability-cyr"
   },
+  "type": "module",
   "keywords": [
     "ukrainian",
     "russian",
@@ -36,6 +57,8 @@
   },
   "homepage": "https://github.com/Amice13/readability-cyr#readme",
   "devDependencies": {
-    "mocha": "^7.1.1"
+    "@types/node": "^25.0.10",
+    "ts-standard": "^12.0.2",
+    "tsup": "^8.5.1"
   }
 }
