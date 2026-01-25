@@ -1,47 +1,47 @@
 // String length
-const length = (str: string): number => {
+export const  length = (str: string): number => {
   return str.length
 }
 
 // Number of spaces
-const spacesCount = (str: string): number => {
+export const  spacesCount = (str: string): number => {
   const spaces = str.match(/ +/gs)
   return spaces !== null ? spaces.length : 0
 }
 
 // Letter count
-const letterCount = (str: string): number => {
+export const  letterCount = (str: string): number => {
   const letters = str.match(/[a-zа-яєіїґё]/igs)
   return letters !== null ? letters.length : 0
 }
 
 // Digit count
-const digitCount = (str: string): number => {
+export const  digitCount = (str: string): number => {
   const digits = str.match(/\d+(?:[.,]\d+)?/igs)
   return digits !== null ? digits.length : 0
 }
 
 // Period count
-const periodCount = (str: string): number => {
+export const  periodCount = (str: string): number => {
   const periods = str.match(/(?<!\.)[:.](?!\.)/igs)
   return periods !== null ? periods.length : 0
 }
 
 // Question count
-const questionCount = (str: string): number => {
+export const  questionCount = (str: string): number => {
   const questions = str.match(/\?/gs)
   return questions !== null ? questions.length : 0
 }
 
 // Get words array
-const getWords = (str: string): string[] => {
+export const  getWords = (str: string): string[] => {
   const words = str.match(/[a-zа-яєіїґё`']+/isg)
   if (words === null) return []
   return words.map(el => el.toLowerCase())
 }
 
 // Get random n words (probably it's worth to implement it with a seed number)
-const getRandomSample = (str: string, n: number = 100, replacement: boolean = false): string[] => {
+export const  getRandomSample = (str: string, n: number = 100, replacement: boolean = false): string[] => {
   const words = getWords(str)
   if (words.length < n) return words
   const random: string[] = []
@@ -55,7 +55,7 @@ const getRandomSample = (str: string, n: number = 100, replacement: boolean = fa
 }
 
 // Get n words from random place in the text
-const getRandomPart = (string: string, n: number = 100): string => {
+export const  getRandomPart = (string: string, n: number = 100): string => {
   const wordPattern = /[a-zа-яєіїґё`']/sgi
   const parts = string.match(/[a-zа-яєіїґё`']+|[^a-z]/sgi)
   if (!parts) return ''
@@ -68,12 +68,12 @@ const getRandomPart = (string: string, n: number = 100): string => {
 }
 
 // Get words count
-const wordCount = (str: string): number => {
+export const  wordCount = (str: string): number => {
   return getWords(str).length
 }
 
 // Average word length
-const averageWordLength = (str: string): number => {
+export const  averageWordLength = (str: string): number => {
   const words = getWords(str)
   if (words.length === 0) return 0
   const totalWordsLength = words.reduce((acc, val) => val.length + acc, 0)
@@ -81,12 +81,12 @@ const averageWordLength = (str: string): number => {
 }
 
 // Unique word count
-const uniqueWordCount = (str: string): number => {
+export const  uniqueWordCount = (str: string): number => {
   return new Set(getWords(str)).size
 }
 
 // Lexical Diversity (Text-Type Ratio)
-const calculateDiversity = {
+export const  calculateDiversity = {
   // Text-Type Ratio (https://www.sketchengine.eu/glossary/type-token-ratio-ttr/)
   ttr: (unique: number, words: number): number => unique / words,
   // 
@@ -97,18 +97,18 @@ const calculateDiversity = {
   summer: (unique: number, words: number): number => Math.log10(Math.log10(unique)) / Math.log10(Math.log10(words)) // Summer's index
 }
 
-const lexicalDiversity = (str: string, type: keyof typeof calculateDiversity = 'ttr'): number => {
+export const  lexicalDiversity = (str: string, type: keyof typeof calculateDiversity = 'ttr'): number => {
   return calculateDiversity[type](uniqueWordCount(str), wordCount(str))
 }
 
 // Single syllable count
-const singleSyllableCount = (str: string): number => {
+export const  singleSyllableCount = (str: string): number => {
   const syllables = str.match(/[еиіоуяюєїёaeiou]/ig)
   return syllables !== null ? syllables.length : 0
 }
 
 // Text syllable count
-const syllableCount = (str: string): number => {
+export const  syllableCount = (str: string): number => {
   const words = getWords(str)
   if (words.length === 0) return 0
   const syllablesCount = words.reduce((acc, val) => singleSyllableCount(val) + acc, 0)
@@ -116,7 +116,7 @@ const syllableCount = (str: string): number => {
 }
 
 // Difficult words
-const getDifficultWords = (str: string): string[] => {
+export const  getDifficultWords = (str: string): string[] => {
   const words = getWords(str)
   if (words.length === 0) return []
   const difficultWords = words.filter(el => singleSyllableCount(el) >= 3)
@@ -124,26 +124,26 @@ const getDifficultWords = (str: string): string[] => {
 }
 
 // Difficult words count
-const difficultWordsCount = (str: string): number => {
+export const  difficultWordsCount = (str: string): number => {
   return getDifficultWords(str).length
 }
 
 // Average syllables per word
-const averageSyllablesWord = (str: string): number => {
+export const  averageSyllablesWord = (str: string): number => {
   const words = wordCount(str)
   if (words === 0) return 0
   return syllableCount(str) / words
 }
 
 // Percentage of difficult words
-const difficultWordsPercentage = (str: string): number => {
+export const  difficultWordsPercentage = (str: string): number => {
   const words = wordCount(str)
   if (words === 0) return 0
   return getDifficultWords(str).length * 100 / words
 }
 
 // Longest word by letters
-const longestWordLetters = (str: string): string => {
+export const  longestWordLetters = (str: string): string => {
   const words = getWords(str)
   let max = 0
   let longestWord = ''
@@ -156,12 +156,12 @@ const longestWordLetters = (str: string): string => {
   return longestWord
 }
 
-const longestWordLettersLength = (str: string): number => {
+export const  longestWordLettersLength = (str: string): number => {
   return longestWordLetters(str).length
 }
 
 // Longest word by syllables
-const longestWordSyllables = (str: string): string => {
+export const  longestWordSyllables = (str: string): string => {
   const words = getWords(str)
   let longestWord = ''
   let max = 0
@@ -174,11 +174,11 @@ const longestWordSyllables = (str: string): string => {
   return longestWord
 }
 
-const longestWordSyllablesLength = (str: string): number => {
+export const  longestWordSyllablesLength = (str: string): number => {
   return singleSyllableCount(longestWordSyllables(str))
 }
 // Get sentences array
-const getSentences = (str: string): string[] => {
+export const  getSentences = (str: string): string[] => {
   let sentences = str.split(/\n|\.{3}|(?<!(?:\s|,|:|\.)[A-ZА-ЯЄІЇҐЁ])\.|!|\?/sg)
   if (sentences === null) return []
   sentences = sentences.filter(el => el.length)
@@ -186,21 +186,21 @@ const getSentences = (str: string): string[] => {
 }
 
 // Sentence count
-const sentenceCount = (str: string): number => {
+export const  sentenceCount = (str: string): number => {
   return getSentences(str).length
 }
 
 // Short sentences (at most 19 words)
-const shortSentenceCount = (str: string): number => {
+export const  shortSentenceCount = (str: string): number => {
   return getSentences(str).filter(el => wordCount(el) < 20).length
 }
 // Long sentences (at least 34 words)
-const longSentenceCount = (str: string): number => {
+export const  longSentenceCount = (str: string): number => {
   return getSentences(str).filter(el => wordCount(el) > 33).length
 }
 
 // Shortest sentence
-const shortestSentence = (str: string): string => {
+export const  shortestSentence = (str: string): string => {
   const sentences = getSentences(str)
   let shortest = ''
   let min = Number.MAX_VALUE
@@ -213,20 +213,20 @@ const shortestSentence = (str: string): string => {
   return shortest.trim()
 }
 
-const shortestSentenceLength = (str: string): number => {
+export const  shortestSentenceLength = (str: string): number => {
   return shortestSentence(str).length
 }
 
-const shortestSentenceSyllableCount = (str: string): number => {
+export const  shortestSentenceSyllableCount = (str: string): number => {
   return syllableCount(shortestSentence(str))
 }
 
-const shortestSentenceWordCount = (str: string): number => {
+export const  shortestSentenceWordCount = (str: string): number => {
   return wordCount(shortestSentence(str))
 }
 
 // Longest sentence
-const longestSentence = (str: string): string => {
+export const  longestSentence = (str: string): string => {
   const sentences = getSentences(str)
   let longest = ''
   let max = 0
@@ -239,20 +239,20 @@ const longestSentence = (str: string): string => {
   return longest.trim()
 }
 
-const longestSentenceLength = (str: string): number => {
+export const  longestSentenceLength = (str: string): number => {
   return longestSentence(str).length
 }
 
-const longestSentenceSyllableCount = (str: string): number => {
+export const  longestSentenceSyllableCount = (str: string): number => {
   return syllableCount(longestSentence(str))
 }
 
-const longestSentenceWordLength = (str: string): number => {
+export const  longestSentenceWordLength = (str: string): number => {
   return wordCount(longestSentence(str))
 }
 
 // Average sentence length
-const averageSentenceLength = (str: string): number => {
+export const  averageSentenceLength = (str: string): number => {
   const sentences = getSentences(str)
   if (sentences.length === 0) return 0
   const sentencesLength = sentences.map(el => getWords(el).length)
@@ -260,7 +260,7 @@ const averageSentenceLength = (str: string): number => {
 }
 
 // Average sentende by syllables
-const averageSentenceSyllable = (str: string): number => {
+export const  averageSentenceSyllable = (str: string): number => {
   const sentences = getSentences(str)
   if (sentences.length === 0) return 0
   const sentencesLength = sentences.map(el => syllableCount(el))
@@ -268,7 +268,7 @@ const averageSentenceSyllable = (str: string): number => {
 }
 
 // Average sentence by words
-const averageSentenceWords = (str: string): number => {
+export const  averageSentenceWords = (str: string): number => {
   const sentences = getSentences(str)
   if (sentences.length === 0) return 0
   const sentencesLength = sentences.map(el => wordCount(el))
@@ -276,18 +276,18 @@ const averageSentenceWords = (str: string): number => {
 }
 
 // Get paragraphs
-const getParapgraphs = (str: string): string[] => {
+export const  getParapgraphs = (str: string): string[] => {
   const rows = str.split(/\n+/sg).filter(el => el.length > 0)
   return rows
 }
 
 // Paragraph count
-const paragraphCount = (str: string): number => {
+export const  paragraphCount = (str: string): number => {
   return getParapgraphs(str).length
 }
 
 // Average paragraph by words
-const averageParagraphWords = (str: string): number => {
+export const  averageParagraphWords = (str: string): number => {
   const paragraphs = getParapgraphs(str)
   if (paragraphs.length === 0) return 0
   const paragraphsLength = paragraphs.map(el => getWords(el).length)
@@ -295,7 +295,7 @@ const averageParagraphWords = (str: string): number => {
 }
 
 // Average paragraph by sentences
-const averageParagraphSentences = (str: string): number => {
+export const  averageParagraphSentences = (str: string): number => {
   const paragraphs = getParapgraphs(str)
   if (paragraphs.length === 0) return 0
   const paragraphsLength = paragraphs.map(el => getSentences(el).length)
@@ -303,7 +303,7 @@ const averageParagraphSentences = (str: string): number => {
 }
 
 // Gunning Fog Score
-const scoreGunningFog = (str: string): number => {
+export const  scoreGunningFog = (str: string): number => {
   const asl = averageSentenceWords(str)
   const p = difficultWordsCount(str)
   const w = wordCount(str)
@@ -311,7 +311,7 @@ const scoreGunningFog = (str: string): number => {
 }
 
 // The Powers-Sumner-Kearl Variation of Gunning's Fog Index
-const scoreGunningFogPSK = (str: string): number => {
+export const  scoreGunningFogPSK = (str: string): number => {
   const asl = averageSentenceWords(str)
   const w = wordCount(str)
   const p = difficultWordsCount(str)
@@ -319,14 +319,14 @@ const scoreGunningFogPSK = (str: string): number => {
 }
 
 // Flesch Kincaid Reading Grade
-const scoreFleschKincaidGrade = (str: string): number => {
+export const  scoreFleschKincaidGrade = (str: string): number => {
   const asl = averageSentenceWords(str)
   const asw = averageSyllablesWord(str)
   return 0.39 * asl + 11.8 * asw - 15.59
 }
 
 // Flesch Kincaid Reading Ease
-const scoreFleschKincaidEase = (str: string): number => {
+export const  scoreFleschKincaidEase = (str: string): number => {
   const tw = wordCount(str)
   const ts = sentenceCount(str)
   if (!tw || !ts) return 0
@@ -335,7 +335,7 @@ const scoreFleschKincaidEase = (str: string): number => {
 }
 
 // Farr-Jenkins-Paterson's Simplification of Flesch's Reading Ease Score
-const scoreFJPS = (str: string): number => {
+export const  scoreFJPS = (str: string): number => {
   const words = getWords(str)
   const asl = averageSentenceWords(str)
   const nwsy = words.filter(el => singleSyllableCount(el) === 1).length
@@ -344,7 +344,7 @@ const scoreFJPS = (str: string): number => {
 }
 
 // The Powers-Sumner-Kearl's Variation of Flesch Reading Ease Score
-const scoreFleschPSK = (str: string): number => {
+export const  scoreFleschPSK = (str: string): number => {
   const asl = averageSentenceWords(str)
   const nsy = syllableCount(str)
   const nw = wordCount(str)
@@ -352,42 +352,42 @@ const scoreFleschPSK = (str: string): number => {
 }
 
 // SMOG Index
-const scoreSMOG = (str: string): number => {
+export const  scoreSMOG = (str: string): number => {
   const q = getWords(str).filter(el => singleSyllableCount(el) > 3)
   const s = sentenceCount(str)
   return 1.043 * Math.sqrt(q.length) * 30 / s + 3.1291
 }
 
 // Simplified Version of McLaughlin's (1969) SMOG Measure
-const scoreSMOGSimple = (str: string): number => {
+export const  scoreSMOGSimple = (str: string): number => {
   const q = getWords(str).filter(el => singleSyllableCount(el) > 3)
   const s = sentenceCount(str)
   return Math.sqrt(q.length * 30 / s) + 3
 }
 
 // Automated Readability Index Simple
-const scoreARISimple = (str: string): number => {
+export const  scoreARISimple = (str: string): number => {
   const awl = averageWordLength(str)
   const aws = averageSentenceWords(str)
   return 9 * awl + aws
 }
 
 // Automated Readability Index
-const scoreARI = (str: string): number => {
+export const  scoreARI = (str: string): number => {
   const awl = averageWordLength(str)
   const aws = averageSentenceWords(str)
   return 4.71 * awl + 0.5 * aws - 21.43
 }
 
 // Coleman's (1971) Readability Formula 1
-const scoreColeman = (str: string): number => {
+export const  scoreColeman = (str: string): number => {
   const words = getWords(str)
   const nws = words.filter(el => singleSyllableCount(el) === 1).length
   return 1.29 * 100 * nws / words.length - 38.45
 }
 
 // Coleman's (1971) Readability Formula 2
-const scoreColeman2 = (str: string): number => {
+export const  scoreColeman2 = (str: string): number => {
   const words = getWords(str)
   const nws = words.filter(el => singleSyllableCount(el) === 1).length
   const nst = sentenceCount(str)
@@ -396,7 +396,7 @@ const scoreColeman2 = (str: string): number => {
 }
 
 // Coleman-Liau Estimated Cloze Percent
-const scoreColemanLiauECP = (str: string): number => {
+export const  scoreColemanLiauECP = (str: string): number => {
   const awl = averageWordLength(str)
   const nst = sentenceCount(str)
   const nw = getWords(str).length
@@ -404,12 +404,12 @@ const scoreColemanLiauECP = (str: string): number => {
 }
 
 // Coleman-Liau Grade Level (Coleman and Liau 1975)
-const scoreColemanLiauGL = (str: string): number => {
+export const  scoreColemanLiauGL = (str: string): number => {
   const ecp = scoreColemanLiauECP(str)
   return -27.4004 * ecp / 100 + 23.06395
 }
 
-const scoreColemanLiau = (str: string): number => {
+export const  scoreColemanLiau = (str: string): number => {
   const words = getWords(str).slice(0, 100)
   const nw = words.length
   if (nw === 0) return 0
@@ -422,7 +422,7 @@ const scoreColemanLiau = (str: string): number => {
 }
 
 // Old Dale-Chall Readability Score
-const scoreDaleChallOld = (str: string): number => {
+export const  scoreDaleChallOld = (str: string): number => {
   const d = difficultWordsCount(str)
   const w = wordCount(str)
   const s = sentenceCount(str)
@@ -432,7 +432,7 @@ const scoreDaleChallOld = (str: string): number => {
 }
 
 // Dale-Chall Readability Score
-const scoreDaleChall = (str: string): number => {
+export const  scoreDaleChall = (str: string): number => {
   const d = difficultWordsCount(str)
   const w = wordCount(str)
   const s = sentenceCount(str)
@@ -440,14 +440,14 @@ const scoreDaleChall = (str: string): number => {
 }
 
 // Spache Readability Score
-const scoreSpache = (str: string): number => {
+export const  scoreSpache = (str: string): number => {
   const a = averageSentenceLength(str)
   const d = difficultWordsCount(str)
   return 0.121 * a + 0.082 * d + 0.659
 }
 
 // Linsear-Write formula
-const scoreLinsearWrite = (str: string): number => {
+export const  scoreLinsearWrite = (str: string): number => {
   const sample = getRandomPart(str)
   const words = getWords(sample as string)
   const s = sentenceCount(sample as string)
@@ -457,7 +457,7 @@ const scoreLinsearWrite = (str: string): number => {
 }
 
 // The Power-Sumner-Kearl Readability Formula Grade Level
-const scorePowerSumnerKearlGrade = (str: string): number => {
+export const  scorePowerSumnerKearlGrade = (str: string): number => {
   const sample = getRandomPart(str)
   const asl = averageSentenceLength(sample as string)
   const ns = syllableCount(sample as string) / wordCount(sample as string)
@@ -465,7 +465,7 @@ const scorePowerSumnerKearlGrade = (str: string): number => {
 }
 
 // The Power-Sumner-Kearl Readability Formula Reading Age
-const scorePowerSumnerKearlRA = (str: string): number => {
+export const  scorePowerSumnerKearlRA = (str: string): number => {
   const sample = getRandomPart(str)
   const asl = averageSentenceLength(sample as string)
   const ns = syllableCount(sample as string) / wordCount(sample as string)
@@ -473,7 +473,7 @@ const scorePowerSumnerKearlRA = (str: string): number => {
 }
 
 // FORCAST Readability Formula Grade Level
-const scoreForcastGL = (str: string): number => {
+export const  scoreForcastGL = (str: string): number => {
   const sample = getRandomPart(str, 150)
   const words = getWords(sample)
   const n = words.filter(el => singleSyllableCount(el) === 1).length
@@ -481,7 +481,7 @@ const scoreForcastGL = (str: string): number => {
 }
 
 // FORCAST Readability Formula Reading Age
-const scoreForcastRA = (str: string): number => {
+export const  scoreForcastRA = (str: string): number => {
   const sample = getRandomPart(str, 150)
   const words = getWords(sample)
   const n = words.filter(el => singleSyllableCount(el) === 1).length
@@ -489,7 +489,7 @@ const scoreForcastRA = (str: string): number => {
 }
 
 // LIX readability test
-const scoreLIX = (str: string): number => {
+export const  scoreLIX = (str: string): number => {
   const a = wordCount(str)
   const b = periodCount(str)
   const c = getWords(str).filter(el => el.length > 6).length
@@ -497,7 +497,7 @@ const scoreLIX = (str: string): number => {
 }
 
 // RIX Anderson's (1983) Readability Index
-const scoreRIX = (str: string): number => {
+export const  scoreRIX = (str: string): number => {
   const words = getWords(str)
   const nwsy = words.filter(el => el.length > 6)
   const nst = sentenceCount(str)
@@ -505,7 +505,7 @@ const scoreRIX = (str: string): number => {
 }
 
 // Danielson-Bryan's (1963) Readability Measure 1
-const scoreDanielsonBryan = (str: string): number => {
+export const  scoreDanielsonBryan = (str: string): number => {
   const c = getWords(str).map(el => el.length).reduce((acc, val) => acc + val, 0)
   const bl = wordCount(str) - 1
   const st = sentenceCount(str)
@@ -513,7 +513,7 @@ const scoreDanielsonBryan = (str: string): number => {
 }
 
 // Danielson-Bryan's (1963) Readability Measure 2
-const scoreDanielsonBryan2 = (str: string): number => {
+export const  scoreDanielsonBryan2 = (str: string): number => {
   const c = getWords(str).map(el => el.length).reduce((acc, val) => acc + val, 0)
   const bl = wordCount(str) - 1
   const st = sentenceCount(str)
@@ -521,7 +521,7 @@ const scoreDanielsonBryan2 = (str: string): number => {
 }
 
 // Dickes-Steiwer Index
-const scoreDickesSteiwer = (str: string): number => {
+export const  scoreDickesSteiwer = (str: string): number => {
   const awl = averageWordLength(str)
   const asl = averageSentenceWords(str)
   const ttr = lexicalDiversity(str)
@@ -529,7 +529,7 @@ const scoreDickesSteiwer = (str: string): number => {
 }
 
 // Easy Listening Formula
-const scoreELF = (str: string): number => {
+export const  scoreELF = (str: string): number => {
   const words = getWords(str)
   const nwsy = words.filter(el => singleSyllableCount(el) >= 2).length
   const nst = sentenceCount(str)
@@ -537,26 +537,26 @@ const scoreELF = (str: string): number => {
 }
 
 // Fucks' Style Characteristic
-const scoreFSC = (str: string): number => {
+export const  scoreFSC = (str: string): number => {
   return averageWordLength(str) * averageSentenceLength(str)
 }
 
 // Strain Index
-const scoreStrain = (str: string): number => {
+export const  scoreStrain = (str: string): number => {
   const s = sentenceCount(str)
   const sy = syllableCount(str)
   return sy / (s / 3) / 10
 }
 
 // Wheeler & Smith's (1954) Readability Measure
-const scoreWheelerSmith = (str: string): number => {
+export const  scoreWheelerSmith = (str: string): number => {
   const asl = averageSentenceWords(str)
   const nw = wordCount(str)
   const nwsy = getWords(str).filter(el => singleSyllableCount(el) > 1).length
   return asl * 10 * nwsy / nw
 }
 
-const readingTime = (str: string, wpm = 200): string => {
+export const  readingTime = (str: string, wpm = 200): string => {
   const count = wordCount(str)
   const duration = count / wpm * 60 * 1000
   const seconds = String(Math.floor(duration / 1000) % 60).padStart(2, '0')
@@ -566,11 +566,11 @@ const readingTime = (str: string, wpm = 200): string => {
 }
 
 // Speaking time
-const speakingTime = (str: string, wpm = 160): string => {
+export const  speakingTime = (str: string, wpm = 160): string => {
   return readingTime(str, wpm)
 }
 
-const vocabulary = {
+export const  vocabulary = {
   characters: 'Number of characters',
   spaces: 'Number of spaces',
   letters: 'Number of letters',
@@ -610,7 +610,7 @@ const vocabulary = {
 }
 
 // Get summary
-const getSummary = (str: string): Record<keyof typeof vocabulary, number | string> => {
+export const  getSummary = (str: string): Record<keyof typeof vocabulary, number | string> => {
   return {
     characters: length(str),
     spaces: spacesCount(str),
@@ -651,7 +651,7 @@ const getSummary = (str: string): Record<keyof typeof vocabulary, number | strin
   }
 }
 
-const getDescriptiveSummary = (str: string): Array<{ title: string, value: number | string }> => {
+export const  getDescriptiveSummary = (str: string): Array<{ title: string, value: number | string }> => {
   const summary = getSummary(str)
   const keys = Object.keys(summary) as Array<keyof typeof vocabulary>
   return keys.map(key => {
