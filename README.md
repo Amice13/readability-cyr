@@ -77,7 +77,7 @@ npm install readability-cyr --save
 ## Usage
 
 ```js
-const { scoreDaleChall, getSummary } = require('readability-cyr')
+import { scoreDaleChall, getSummary } from 'readability-cyr'
 
 const testText = `
 К. прибув пізнього вечора. Село загрузло в глибокому снігу. Замкової гори не було видно, її поглинули туман і темрява, жоден, навіть слабенький, промінчик світла не виказував існування великого Замку. К. довго стояв на дерев'яному містку, який з'єднував гостинець із Селом, і вдивлявся в те, що здавалося порожнечею.
